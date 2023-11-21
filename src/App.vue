@@ -1,15 +1,26 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 
 import MenuItem from "./components/MenuItem.vue";
+import MusicPlayer from "./components/MusicPlayer.vue";
 
 import ChevronUp from "vue-material-design-icons/ChevronUp.vue";
 import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 import ChevronLeft from "vue-material-design-icons/ChevronLeft.vue";
 import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 
+import { useSongStore } from "./stores/song";
+import { storeToRefs } from "pinia";
+
+const useSong = useSongStore();
+const { isPlaying, currentTrack } = storeToRefs(useSong);
+
 let openMenu = ref(false);
+
+onMounted(() => {
+  isPlaying.value = false;
+});
 </script>
 
 <template>
@@ -151,18 +162,6 @@ let openMenu = ref(false);
     <RouterView />
     <div class="mb-[100px]"></div>
   </div>
+
+  <MusicPlayer />
 </template>
-
-<style scoped>
-.main-view::-webkit-scrollbar {
-  width: 0.5em;
-}
-.main-view::-webkit-scrollbar-thumb {
-  background-color: #333333;
-  border-radius: 0.5em;
-}
-
-.main-view::-webkit-scrollbar-track {
-  background-color: #1a1a1a;
-}
-</style>

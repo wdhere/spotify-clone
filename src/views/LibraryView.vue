@@ -6,6 +6,21 @@ import Heart from "vue-material-design-icons/Heart.vue";
 import ClockTimeThreeOutline from "vue-material-design-icons/ClockTimeThreeOutline.vue";
 import SongRow from "../components/SongRow.vue";
 import artist from "../artist.json";
+
+import { useSongStore } from "../stores/song";
+import { storeToRefs } from "pinia";
+
+const useSong = useSongStore();
+const { isPlaying, audio, currentTrack, currentArtist } = storeToRefs(useSong);
+
+const playFunc = () => {
+  if (currentTrack.value) {
+    useSong.playOrPauseThisSong(currentArtist.value, currentTrack.value);
+    return;
+  }
+
+  useSong.playFromFirst();
+};
 </script>
 
 <template>
