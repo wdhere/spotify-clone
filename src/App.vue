@@ -15,7 +15,7 @@ let openMenu = ref(false);
 <template>
   <div>
     <div
-      class="w-[calc(100%-240px)] h-[60px] fixed right-0 z-20 bg-[#101010] bg-opacity-80 flex items-center justify-between"
+      class="w-[calc(100%-240px)] h-[60px] fixed right-0 z-20 bg-[#101010] bg-opacity-90 flex items-center justify-between"
     >
       <div class="flex items-center ml-6">
         <button
@@ -145,10 +145,24 @@ let openMenu = ref(false);
   </div>
 
   <div
-    class="fixed right-0 top-0 w-[calc(100%-240px)] overflow-auto h-full bg-gradient-to-b from-[#1C1C1C] to-black"
+    class="main-view fixed right-0 top-0 w-[calc(100%-240px)] overflow-auto h-full bg-gradient-to-b from-[#1C1C1C] to-black"
   >
     <div class="mt-[70px]"></div>
     <RouterView />
     <div class="mb-[100px]"></div>
   </div>
 </template>
+
+<style scoped>
+.main-view::-webkit-scrollbar {
+  width: 0.5em;
+}
+.main-view::-webkit-scrollbar-thumb {
+  background-color: #333333;
+  border-radius: 0.5em;
+}
+
+.main-view::-webkit-scrollbar-track {
+  background-color: #1a1a1a;
+}
+</style>
