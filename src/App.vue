@@ -16,7 +16,7 @@ import { storeToRefs } from "pinia";
 const useSong = useSongStore();
 const { isPlaying, currentTrack } = storeToRefs(useSong);
 
-let openMenu = ref(false);
+const openMenu = ref(false);
 
 onMounted(() => {
   isPlaying.value = false;
@@ -163,5 +163,5 @@ onMounted(() => {
     <div class="mb-[100px]"></div>
   </div>
 
-  <MusicPlayer />
+  <MusicPlayer v-if="currentTrack" />
 </template>

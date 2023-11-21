@@ -48,8 +48,13 @@ export const useSongStore = defineStore("song", {
     },
 
     prevSong(currentTrack) {
-      let track = artist.tracks[currentTrack.id - 2];
-      this.loadSong(artist, track);
+      if (currentTrack.id === 1) {
+        let track = artist.tracks[artist.tracks.length - 1];
+        this.loadSong(artist, track);
+      } else {
+        let track = artist.tracks[currentTrack.id - 2];
+        this.loadSong(artist, track);
+      }
     },
 
     nextSong(currentTrack) {
@@ -75,4 +80,6 @@ export const useSongStore = defineStore("song", {
       this.currentTrack = null;
     },
   },
+
+  persist: true,
 });

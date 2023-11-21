@@ -13,8 +13,8 @@ const props = defineProps({
 
 const { iconString, iconSize, pageUrl, name } = toRefs(props);
 
-let icon = ref(null);
-let textIsHover = ref(false);
+const icon = ref(null);
+const textIsHover = ref(false);
 
 watchEffect(() => {
   if (route.path === pageUrl.value) {

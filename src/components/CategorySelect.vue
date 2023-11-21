@@ -3,7 +3,7 @@ import { ref, toRefs } from "vue";
 import { RouterLink } from "vue-router";
 import uniqolor from "uniqolor";
 
-let randColor = ref("");
+const randColor = ref("");
 randColor.value = uniqolor.random();
 
 const props = defineProps({

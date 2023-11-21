@@ -4,14 +4,14 @@ import Pause from "vue-material-design-icons/Pause.vue";
 import DotsHorizontal from "vue-material-design-icons/DotsHorizontal.vue";
 import Heart from "vue-material-design-icons/Heart.vue";
 import ClockTimeThreeOutline from "vue-material-design-icons/ClockTimeThreeOutline.vue";
-import SongRow from "../components/SongRow.vue";
 import artist from "../artist.json";
+import SongRow from "../components/SongRow.vue";
 
 import { useSongStore } from "../stores/song";
 import { storeToRefs } from "pinia";
 
 const useSong = useSongStore();
-const { isPlaying, audio, currentTrack, currentArtist } = storeToRefs(useSong);
+const { isPlaying, currentTrack, currentArtist } = storeToRefs(useSong);
 
 const playFunc = () => {
   if (currentTrack.value) {

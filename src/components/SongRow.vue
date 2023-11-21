@@ -10,8 +10,8 @@ import { storeToRefs } from "pinia";
 const useSong = useSongStore();
 const { isPlaying, currentTrack } = storeToRefs(useSong);
 
-let isHover = ref(false);
-let isTrackTime = ref(null);
+const isHover = ref(false);
+const isTrackTime = ref(null);
 
 const props = defineProps({
   track: Object,
