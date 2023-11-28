@@ -6,7 +6,7 @@ import HomeCard from "../components/HomeCard.vue";
   <div class="p-8">
     <button
       type="button"
-      class="text-white text-2xl font-semibold hover:underline cursor-pointer"
+      class="text-white text-2xl font-light hover:underline cursor-pointer"
     >
       Podcasts to make you smarter
     </button>

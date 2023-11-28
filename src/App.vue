@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { RouterLink, RouterView } from "vue-router";
 
 import MenuItem from "./components/MenuItem.vue";
 import MusicPlayer from "./components/MusicPlayer.vue";
@@ -12,6 +11,8 @@ import ChevronRight from "vue-material-design-icons/ChevronRight.vue";
 
 import { useSongStore } from "./stores/song";
 import { storeToRefs } from "pinia";
+import MainPage from "./components/MainPage.vue";
+import { Icon } from "@iconify/vue";
 
 const useSong = useSongStore();
 const { isPlaying, currentTrack } = storeToRefs(useSong);
@@ -55,6 +56,11 @@ onMounted(() => {
         class="bg-black hover:bg-[#282828] rounded-full p-0.5 mr-8 mt-0.5 cursor-pointer"
       >
         <div class="flex items-center">
+          <Icon
+            icon="heroicons:home-20-solid"
+            width="26"
+            class="cursor-pointer hover:text-white transition text-neutral-400"
+          />
           <img
             src="/face.png"
             width="27"
@@ -93,15 +99,15 @@ onMounted(() => {
       id="SideNav"
       class="h-[100%] p-6 w-[240px] fixed left-0 z-50 bg-black"
     >
-      <RouterLink to="/">
+      <router-link to="/">
         <img
           width="125"
           src="/images/icons/spotify-logo.png"
         />
-      </RouterLink>
+      </router-link>
       <div class="my-8"></div>
       <ul>
-        <RouterLink to="/">
+        <router-link to="/">
           <MenuItem
             class="ml-[1px]"
             :iconSize="23"
@@ -109,8 +115,8 @@ onMounted(() => {
             iconString="home"
             pageUrl="/"
           />
-        </RouterLink>
-        <RouterLink to="/search">
+        </router-link>
+        <router-link to="/search">
           <MenuItem
             class="ml-[1px]"
             :iconSize="24"
@@ -118,8 +124,8 @@ onMounted(() => {
             iconString="search"
             pageUrl="/search"
           />
-        </RouterLink>
-        <RouterLink to="/library">
+        </router-link>
+        <router-link to="/library">
           <MenuItem
             class="ml-[1px]"
             :iconSize="23"
@@ -127,7 +133,7 @@ onMounted(() => {
             iconString="library"
             pageUrl="/library"
           />
-        </RouterLink>
+        </router-link>
         <div class="py-3.5"></div>
         <MenuItem
           :iconSize="24"
@@ -155,13 +161,7 @@ onMounted(() => {
     </div>
   </div>
 
-  <div
-    class="main-view fixed right-0 top-0 w-[calc(100%-240px)] overflow-auto h-full bg-gradient-to-b from-[#1C1C1C] to-black"
-  >
-    <div class="mt-[70px]"></div>
-    <RouterView />
-    <div class="mb-[100px]"></div>
-  </div>
+  <MainPage />
 
   <MusicPlayer v-if="currentTrack" />
 </template>
