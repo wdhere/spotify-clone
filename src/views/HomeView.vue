@@ -1,131 +1,56 @@
 <script setup>
-import HomeCard from "../components/HomeCard.vue";
+import { ref } from "vue";
+
+import Header from "@/components/Header.vue";
+import ListItem from "@/components/ListItem.vue";
+import SongItem from "@/components/SongItem.vue";
+
+import useSongs from "@/composables/useSongs";
+import useOnPlay from "../composables/useOnPlay";
+
+const songs = ref([]);
+const onPlay = ref(null);
+
+const getSongs = async () => {
+  songs.value = await useSongs();
+  onPlay.value = useOnPlay(songs.value);
+};
+
+getSongs();
 </script>
 
 <template>
-  <div class="p-8">
-    <button
-      type="button"
-      class="text-white text-2xl font-light hover:underline cursor-pointer"
-    >
-      Podcasts to make you smarter
-    </button>
-
-    <div class="py-1.5"></div>
-
-    <div class="flex items-center">
-      <HomeCard
-        image="https://picsum.photos/id/30/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        image="https://picsum.photos/id/45/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="md:block hidden"
-        image="https://picsum.photos/id/65/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="lg:block hidden"
-        image="https://picsum.photos/id/67/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="xl:block hidden"
-        image="https://picsum.photos/id/100/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-    </div>
-  </div>
-
-  <div class="p-8">
-    <button
-      type="button"
-      class="text-white text-2xl font-semibold hover:underline cursor-pointer"
-    >
-      Recommended radio
-    </button>
-
-    <div class="py-1.5"></div>
-
-    <div class="flex items-center">
-      <HomeCard
-        image="https://picsum.photos/id/120/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        image="https://picsum.photos/id/110/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="md:block hidden"
-        image="https://picsum.photos/id/221/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="lg:block hidden"
-        image="https://picsum.photos/id/232/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="xl:block hidden"
-        image="https://picsum.photos/id/187/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-    </div>
-  </div>
-
-  <div class="p-8">
-    <button
-      type="button"
-      class="text-white text-2xl font-semibold hover:underline cursor-pointer"
-    >
-      Recommended song
-    </button>
-
-    <div class="py-1.5"></div>
-
-    <div class="flex items-center">
-      <HomeCard
-        image="https://picsum.photos/id/88/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        image="https://picsum.photos/id/243/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="md:block hidden"
-        image="https://picsum.photos/id/123/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="lg:block hidden"
-        image="https://picsum.photos/id/121/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
-      <HomeCard
-        class="xl:block hidden"
-        image="https://picsum.photos/id/99/300/300"
-        title="Title is here"
-        subTitle="Subtitle is here"
-      />
+  <div
+    class="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto"
+  >
+    <Header>
+      <div class="mb-2">
+        <h1 class="text-white text-3xl font-semibold">Welcome back</h1>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4"
+        >
+          <ListItem
+            name="Liked Songs"
+            image="/images/liked.png"
+            href="/liked"
+          />
+        </div>
+      </div>
+    </Header>
+    <div class="mt-2 mb-7 px-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-white text-2xl font-semibold">Newest songs</h1>
+      </div>
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-4"
+      >
+        <SongItem
+          v-for="item in songs"
+          :onClick="onPlay"
+          :key="item.id"
+          :data="item"
+        />
+      </div>
     </div>
   </div>
 </template>

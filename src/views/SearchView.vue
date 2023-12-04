@@ -1,181 +1,31 @@
 <script setup>
-import CategorySelect from "../components/CategorySelect.vue";
+import { ref, watchEffect } from "vue";
+import Header from "@/components/Header.vue";
+import SearchInput from "@/components/SearchInput.vue";
+import SearchContent from "@/components/SearchContent.vue";
+
+import useSongsByTitle from "@/composables/useSongsByTitle";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
+const songs = ref([]);
+
+watchEffect(async () => {
+  songs.value = await useSongsByTitle(route.query.title);
+});
 </script>
 
 <template>
-  <div class="p-8">
-    <button
-      type="button"
-      class="text-white text-2xl font-semibold hover:underline cursor-pointer"
-    >
-      Browse all
-    </button>
-
-    <div class="py-1.5"></div>
-
-    <div
-      class="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6"
-    >
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/40/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/45/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/76/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/56/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/25/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/103/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/244/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/202/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/101/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/120/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/40/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/45/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/76/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/56/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/25/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/103/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/244/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/202/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/101/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/120/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/40/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/45/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/76/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/56/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/25/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/103/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/244/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/202/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/101/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/120/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/40/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/45/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/76/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/56/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/25/300/300"
-      />
-      <CategorySelect
-        category="Podcasts"
-        image="https://picsum.photos/id/103/300/300"
-      />
-      <CategorySelect
-        category="Audiobooks"
-        image="https://picsum.photos/id/244/300/300"
-      />
-      <CategorySelect
-        category="Made For You"
-        image="https://picsum.photos/id/202/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/101/300/300"
-      />
-      <CategorySelect
-        category="New Release"
-        image="https://picsum.photos/id/120/300/300"
-      />
-    </div>
+  <div
+    class="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto"
+  >
+    <Header customClass="from-bg-neutral-900">
+      <div class="mb-2 flex flex-col gap-y-6">
+        <h1 class="text-white text-3xl font-semibold">Search</h1>
+        <SearchInput />
+      </div>
+    </Header>
+    <SearchContent :songs="songs" />
   </div>
 </template>
